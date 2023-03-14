@@ -11,10 +11,21 @@ function saveToLocalStorage(event){
       email,
       phonenumber
   }
+
+  axios.post("https://crudcrud.com/api/4296548dd82c4705b70c3ad8bdf34b44/appointmentsData",obj)
+  .then((response) => {
+    console.log(response);
+    const newData = response.data;
+    localStorage.setItem(newData.email, JSON.stringify(newData));
+    displayItems();
+  }).catch((err) => {
+    console.log(err);
+  });
+
   //Converting the object to String and storing into Local Storage
-  localStorage.setItem(obj.email,JSON.stringify(obj))
+  //localStorage.setItem(obj.email,JSON.stringify(obj))
  //Calling display items
-  displayItems();
+  //displayItems();
   
 }
 
@@ -78,11 +89,14 @@ for (let i = 0; i < localStorage.length; i++) {
   li.appendChild(nameInput);
   li.appendChild(emailInput);
   li.appendChild(phoneInput);
+  li.textContent = obj.name+'----- '+obj.email+' -----   '+obj.phonenumber ;
   li.appendChild(editBtn);
   li.appendChild(dltBtn);
   //li added inside ul
   ul.appendChild(li);
 }
 }
+
+
 
 
